@@ -17,7 +17,7 @@ HOME="${USER_HOME:-${HOME}}"
 
 # Set functions
 
-SCRIPTSFUNCTURL="${SCRIPTSFUNCTURL:-https://github.com/casjay-dotfiles/scripts/raw/master/functions}"
+SCRIPTSFUNCTURL="${SCRIPTSFUNCTURL:-https://github.com/casjay-dotfiles/scripts/raw/main/functions}"
 SCRIPTSFUNCTDIR="${SCRIPTSFUNCTDIR:-/usr/local/share/CasjaysDev/scripts}"
 SCRIPTSFUNCTFILE="${SCRIPTSFUNCTFILE:-system-installer.bash}"
 
@@ -70,7 +70,7 @@ disable_selinux() {
 grab_remote_file() { urlverify "$1" && curl -sSLq "$@" || exit 1; }
 run_external() { printf_green "Executing $*" && "$@" >/dev/null 2>&1; }
 
-retrieve_version_file() { grab_remote_file https://github.com/casjay-base/centos/raw/master/version.txt | head -n1 || echo "Unknown version"; }
+retrieve_version_file() { grab_remote_file https://github.com/casjay-base/centos/raw/main/version.txt | head -n1 || echo "Unknown version"; }
 run_grub() {
   printf_green "Setting up grub"
   rm -Rf /boot/*rescue*
