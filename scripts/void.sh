@@ -6,7 +6,7 @@ HOME="${USER_HOME:-${HOME}}"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # @Author      : Jason
-# @Contact     : casjaysdev@casjay.net
+# @Contact     : casjaysdev@casjay.pro
 # @File        : template.sh
 # @Created     : Sat, Aug 15, 2020, 22:31 EST
 # @License     : WTFPL
