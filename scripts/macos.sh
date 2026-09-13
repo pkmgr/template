@@ -69,7 +69,7 @@ disable_selinux() {
 grab_remote_file() { urlverify "$1" && curl -sSLq "$@" || exit 1; }
 run_external() { printf_green "Executing $*" && "$@" >/dev/null 2>&1; }
 
-retrieve_version_file() { grab_remote_file https://github.com/casjay-base/centos/raw/main/version.txt | head -n1 || echo "Unknown version"; }
+retrieve_version_file() { grab_remote_file https://github.com/casjay-base/rhel/raw/main/version.txt | head -n1 || echo "Unknown version"; }
 
 #### OS Specific
 test_pkg() {
