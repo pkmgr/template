@@ -47,12 +47,12 @@ system_service_exists() {
     setexitstatus
     set --
 }
-system_service_enable() {
+__system_service_enable() {
     if system_service_exists "$1"; then execute "systemctl enable --now -f $1" "Enabling service: $1"; fi
     setexitstatus
     set --
 }
-system_service_disable() {
+__system_service_disable() {
     if system_service_exists "$1"; then execute "systemctl disable --now $1" "Disabling service: $1"; fi
     setexitstatus
     set --
@@ -88,7 +88,7 @@ remove_pkg() {
     setexitstatus
     set --
 }
-install_pkg() {
+__install_pkg() {
     if test_pkg "$1"; then execute "sudo xbps-install -Su $1" "Installing: $1"; fi
     setexitstatus
     set --
@@ -101,14 +101,14 @@ install_pkg() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 ##################################################################################################################
-printf_head "Initializing the setup script"
+__printf_head "Initializing the setup script"
 ##################################################################################################################
 
 sudoask && sudoexit
 execute "sudo PKMGR"
 
 ##################################################################################################################
-printf_head "Configuring cores for compiling"
+__printf_head "Configuring cores for compiling"
 ##################################################################################################################
 
 if [ -f /etc/makepkg.conf ]; then
@@ -122,17 +122,17 @@ if [ -f /etc/makepkg.conf ]; then
 fi
 
 ##################################################################################################################
-printf_head "Installing the packages for TEMPLATE"
+__printf_head "Installing the packages for TEMPLATE"
 ##################################################################################################################
 
-install_pkg listofpkgs
+__install_pkg listofpkgs
 
 ##################################################################################################################
-printf_head "Fixing packages"
+__printf_head "Fixing packages"
 ##################################################################################################################
 
 ##################################################################################################################
-printf_head "setting up config files"
+__printf_head "setting up config files"
 ##################################################################################################################
 
 run_post "cp -rT /etc/skel $HOME"
@@ -142,30 +142,30 @@ run_post "dotfilesreq misc"
 run_post dotfilesreqadmin samba
 
 ##################################################################################################################
-printf_head "Enabling services"
+__printf_head "Enabling services"
 ##################################################################################################################
 
-system_service_enable lightdm.service
-system_service_enable bluetooth.service
-system_service_enable smb.service
-system_service_enable nmb.service
-system_service_enable avahi-daemon.service
-system_service_enable tlp.service
-system_service_enable org.cups.cupsd.service
-system_service_disable mpd
+__system_service_enable lightdm.service
+__system_service_enable bluetooth.service
+__system_service_enable smb.service
+__system_service_enable nmb.service
+__system_service_enable avahi-daemon.service
+__system_service_enable tlp.service
+__system_service_enable org.cups.cupsd.service
+__system_service_disable mpd
 
 run_post "devnull systemctl set-default graphical.target"
 
 run_post "devnull grub-mkconfig -o /boot/grub/grub.cfg"
 
 ##################################################################################################################
-printf_head "Cleaning up"
+__printf_head "Cleaning up"
 ##################################################################################################################
 
 remove_pkg xfce4-artwork
 
 ##################################################################################################################
-printf_head "Finished "
+__printf_head "Finished "
 echo""
 ##################################################################################################################
 
